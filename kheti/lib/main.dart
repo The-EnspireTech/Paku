@@ -31,8 +31,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: Home',
-      style: optionStyle,
+      'sandhikharka',
+      //style: optionStyle,
     ),
     Text(
       'Index 1: Crop Plan',
@@ -49,6 +49,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     Text(
       'Index 4: News',
       style: optionStyle,
+    ),
+    Text(
+      'Index 5: Profile',
+      style: optionStyle,
     )
   ];
 
@@ -62,10 +66,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-      ),
+          title: const Text(
+            'Home',
+          ),
+          centerTitle: true,
+          backgroundColor: Color.fromRGBO(20, 172, 168, 1)),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -74,7 +79,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Colors.blue,
+            backgroundColor: Color.fromRGBO(20, 172, 168, 1),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.crop),
@@ -92,9 +97,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             icon: Icon(Icons.book),
             label: 'News',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white70,
+        selectedItemColor: Colors.white,
         onTap: _onItemTapped,
       ),
     );
