@@ -76,6 +76,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               color: Colors.purple,
               size: 50,
             ),
+            Text("Temperature"),
             Icon(
               Icons.circle,
               color: Colors.blue,
