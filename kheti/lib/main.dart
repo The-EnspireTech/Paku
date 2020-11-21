@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoder/geocoder.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,53 +28,74 @@ class MyStatefulWidget extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'sandhikharka',
-      //style: optionStyle,
-    ),
-    Text(
-      'Index 1: Crop Plan',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Crop Care',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Market',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 4: News',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 5: Profile',
-      style: optionStyle,
-    )
-  ];
+  static String message = "";
+  //-----------------------------------------------------------------------------------
+  // Longitude and latitude
 
-  void _onItemTapped(int index) {
+  @override
+  void initState() {
+    super.initState();
+    getCurrentLocation();
+  }
+
+  void getCurrentLocation() async {
+    final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    final coordinates = new Coordinates(position.latitude, position.longitude);
+    var addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    var first = addresses.first;
+
     setState(() {
-      _selectedIndex = index;
+      message = "${first.featureName[1]}";
     });
   }
+
+  //---------------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-            'Home',
-          ),
-          centerTitle: true,
-          backgroundColor: Color.fromRGBO(20, 172, 168, 1)),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        title: const Text("Home"),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(20, 172, 168, 1),
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            Icon(
+              Icons.person_pin_circle,
+              color: Colors.redAccent,
+              size: 40.0,
+            ),
+            Text("\nSandhikharka" + "\n\n"),
+            Icon(
+              Icons.circle,
+              color: Colors.purple,
+              size: 50,
+            ),
+            Icon(
+              Icons.circle,
+              color: Colors.blue,
+              size: 50,
+            ),
+            Text("Precipitation"),
+            Icon(
+              Icons.circle,
+              color: Colors.green,
+              size: 50,
+            ),
+            Text("Humidity"),
+            Icon(
+              Icons.circle,
+              color: Colors.grey,
+              size: 50,
+            ),
+            Text("Wind"),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -102,9 +125,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             label: 'Profile',
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
-        onTap: _onItemTapped,
       ),
     );
   }
