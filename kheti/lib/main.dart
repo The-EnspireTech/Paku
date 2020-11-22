@@ -31,7 +31,7 @@ class MyStatefulWidget extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  static String message = "";
+  static String location = "";
   static String temperature = "";
   static String pressure = "";
   static String humidity = "";
@@ -42,7 +42,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   void initState() {
     super.initState();
     _getCurrentLocation();
-    print(temperature);
   }
 
   void _getCurrentLocation() async {
@@ -56,45 +55,162 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     http.Response response = await http.get(
         "https://api.openweathermap.org/data/2.5/weather?q=Thada&appid=6829005ae98e929e814158d91327a6db");
     var results = jsonDecode(response.body);
-
+    print(results);
     setState(() {
-      message = "${first.locality}";
+      location = "${first.locality}";
       temperature = "${results['main']['temp']}";
       pressure = "${results['main']['pressure']}";
       humidity = "${results['main']['humidity']}";
       wind = "${results['wind']['speed']}";
       description = "${results['weather'][0]['description']}";
     });
+    _getCurrentLocation();
   }
 
-  static TextStyle optionStyle =
-      TextStyle(fontSize: 15, fontWeight: FontWeight.normal);
+  static TextStyle optionStyle = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.normal,
+  );
   static List<Widget> widgetOptions = <Widget>[
-    Text(
-      'Current Location: ' +
-          message +
-          "\n\n" +
-          'Temperature: ' +
-          temperature +
-          '\n\n' +
-          'Pressure: ' +
-          pressure +
-          '\n\n' +
-          'Humidity: ' +
-          humidity +
-          '\n\n' +
-          'Wind: ' +
-          wind +
-          '\n\n' +
-          'Description: ' +
-          description +
-          '\n\n',
-      style: optionStyle,
+//----------------------------Home Pagge ------------------------------------
+    Container(
+      child: Column(
+        children: <Widget>[
+          Column(
+            children: [
+              Text("\n"),
+              Icon(
+                Icons.location_pin,
+                color: Colors.red,
+              ),
+              Text("Live Location: $location" + "\n\n")
+            ],
+          ),
+          Row(
+            children: [
+              Text("\n\n"),
+              Icon(
+                Icons.thermostat_outlined,
+                color: Colors.blue,
+              ),
+              Text("Temperature: $temperature")
+            ],
+          ),
+          Row(
+            children: [
+              Text("\n\n"),
+              Icon(
+                Icons.cloud,
+                color: Colors.grey,
+              ),
+              Text("Pressure: $pressure")
+            ],
+          ),
+          Row(
+            children: [
+              Text("\n\n"),
+              Icon(
+                Icons.cloud_circle,
+                color: Colors.pinkAccent,
+              ),
+              Text("Humidity: $humidity")
+            ],
+          ),
+          Row(
+            children: [
+              Text("\n\n"),
+              Icon(
+                Icons.cloud_download,
+                color: Colors.purple,
+              ),
+              Text("Wind: $wind")
+            ],
+          ),
+          Row(
+            children: [
+              Text("\n\n"),
+              Icon(
+                Icons.textsms,
+                color: Colors.green,
+              ),
+              Text("Description: $description")
+            ],
+          ),
+        ],
+      ),
+      padding: EdgeInsets.all(10.0),
     ),
-    Text(
-      "Hello world",
-      style: optionStyle,
+
+    Container(
+      child: GridView.count(
+        primary: false,
+        padding: const EdgeInsets.all(20),
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        crossAxisCount: 3,
+        children: <Widget>[
+          Column(
+            children: [
+              Icon(
+                Icons.rice_bowl,
+                color: Colors.purple,
+                size: 40,
+              ),
+              Container(
+                padding: const EdgeInsets.all(8),
+                child: const Text("Apple"),
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: const Text('Banana'),
+            color: Colors.teal[200],
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: const Text('Orange'),
+            color: Colors.teal[300],
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: const Text('Mango'),
+            color: Colors.teal[400],
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: const Text('PineApple'),
+            color: Colors.teal[500],
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: const Text('Grapes'),
+            color: Colors.teal[600],
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: const Text('Palm'),
+            color: Colors.teal[600],
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: const Text('Pear'),
+            color: Colors.teal[600],
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: const Text('Guava'),
+            color: Colors.teal[600],
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: const Text('BlackBerry'),
+            color: Colors.teal[600],
+          ),
+        ],
+      ),
     ),
+
     Text(
       'Index 2: Crop Care',
       style: optionStyle,
@@ -127,7 +243,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         centerTitle: true,
         backgroundColor: Color.fromRGBO(20, 172, 168, 1),
       ),
-      body: Center(
+      body: Container(
         child: widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -140,22 +256,27 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.crop),
             label: 'Crop Plan',
+            backgroundColor: Color.fromRGBO(20, 172, 168, 1),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.medical_services_rounded),
             label: 'Crop Care',
+            backgroundColor: Color.fromRGBO(20, 172, 168, 1),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_basket),
             label: 'Market',
+            backgroundColor: Color.fromRGBO(20, 172, 168, 1),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
             label: 'News',
+            backgroundColor: Color.fromRGBO(20, 172, 168, 1),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
+            backgroundColor: Color.fromRGBO(20, 172, 168, 1),
           ),
         ],
         currentIndex: _selectedIndex,
