@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:js';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:http/http.dart' as http;
+import 'chatbot.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,11 +28,11 @@ class MyStatefulWidget extends StatefulWidget {
   MyStatefulWidget({Key key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  MyStatefulWidgetState createState() => MyStatefulWidgetState();
 }
 
 /// This is the private State class that goes with MyStatefulWidget.
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   static String location = "";
   static String temperature = "";
@@ -39,12 +42,17 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static String description = "";
 
   @override
-  void initState() {
+  initState() {
     super.initState();
-    _getCurrentLocation();
+    getCurrentLocation();
   }
 
-  void _getCurrentLocation() async {
+  Future navigateToSubPage(context) async {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => HomePageDialogflow()));
+  }
+
+  getCurrentLocation() async {
     final position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
@@ -56,6 +64,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         "https://api.openweathermap.org/data/2.5/weather?q=Thada&appid=6829005ae98e929e814158d91327a6db");
     var results = jsonDecode(response.body);
     print(results);
+
     setState(() {
       location = "${first.locality}";
       temperature = "${results['main']['temp']}";
@@ -63,8 +72,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       humidity = "${results['main']['humidity']}";
       wind = "${results['wind']['speed']}";
       description = "${results['weather'][0]['description']}";
+      print(location);
     });
-    _getCurrentLocation();
   }
 
   static TextStyle optionStyle = TextStyle(
@@ -83,7 +92,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 Icons.location_pin,
                 color: Colors.red,
               ),
-              Text("Live Location: $location" + "\n\n")
+              Text("Live Location: $location" + "\n\n" + location)
             ],
           ),
           Row(
@@ -134,6 +143,26 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 color: Colors.green,
               ),
               Text("Description: $description")
+            ],
+          ),
+          Column(
+            children: [
+              Text("\n\n\n"),
+              RaisedButton(
+                onPressed: () {},
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                color: Colors.redAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Row(
+                  children: <Widget>[
+                    Text("Let's Chat", style: TextStyle(color: Colors.white)),
+                    SizedBox(width: 6),
+                    Icon(Icons.double_arrow, color: Colors.white),
+                  ],
+                ),
+              ),
             ],
           ),
         ],
@@ -219,10 +248,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       'Index 3: Market',
       style: optionStyle,
     ),
-    Text(
-      'Index 4: News',
-      style: optionStyle,
-    ),
+
     Text(
       'Index 5: Profile',
       style: optionStyle,
