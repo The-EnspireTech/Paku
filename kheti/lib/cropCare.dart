@@ -6,7 +6,7 @@ class CropCare extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         routes: {
-          '/first': (context) => HomePageDialogflow(),
+          '/chat': (context) => HomePageDialogflow(),
         },
         title: 'Crop Care',
         home: Scaffold(
@@ -14,20 +14,23 @@ class CropCare extends StatelessWidget {
             title: Text('Crop Care'),
           ),
           body: Center(
-            child: Column(
-              children: [
-                Icon(
-                  Icons.chat,
-                  color: Colors.purple,
-                ),
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/first');
-                  },
-                  child: Text("Let's Chat!"),
-                  color: Colors.blue,
-                )
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.chat,
+                    color: Colors.purple,
+                  ),
+                  RaisedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/chat');
+                    },
+                    child: Text("Let's Chat!"),
+                    color: Colors.blue,
+                  )
+                ],
+              ),
             ),
           ),
         ));

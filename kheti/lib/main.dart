@@ -8,8 +8,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(routes: {
-      '/first': (context) => HomePageDialogflow(),
-      '/second': (context) => CropCare(),
+      '/cropcare': (context) => CropCare(),
+      '/chat': (context) => HomePageDialogflow(),
     }, home: MyHome());
   }
 }
@@ -25,9 +25,9 @@ class MyHome extends StatelessWidget {
             child: Column(
               children: [
                 RaisedButton(
-                  child: Text('Go to chat'),
+                  child: Text('Go to Home'),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/first');
+                    Navigator.pushNamed(context, '/home');
                   },
                   color: Colors.blue,
                 )
@@ -40,7 +40,7 @@ class MyHome extends StatelessWidget {
                 RaisedButton(
                   child: Text("Go To Crop Plan"),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/second');
+                    Navigator.pushNamed(context, '/cropcare');
                   },
                   color: Colors.purple,
                 )
