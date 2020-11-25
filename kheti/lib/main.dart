@@ -6,13 +6,23 @@ import 'package:kheti/home.dart';
 import 'package:kheti/market.dart';
 import 'package:kheti/news.dart';
 import 'package:kheti/profile.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+      EasyLocalization(
+        supportedLocales: [Locale('en', 'US'), Locale('hi', 'US')],
+        path: 'assets/translations',
+        fallbackLocale: Locale('en', 'US'),
+        child: MyApp(),
+      ),
+    );
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
       routes: {
         '/home': (context) => Home(),
         '/cropcare': (context) => CropCare(),
@@ -31,14 +41,40 @@ class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 100, 20, 10),
+      padding: const EdgeInsets.fromLTRB(20, 100, 60, 10),
       child: Column(
         children: [
           Container(
             child: Column(
               children: [
                 RaisedButton(
-                  child: Text('Go to Home'),
+                  child: Text('Nepali'),
+                  onPressed: () {
+                    context.locale = Locale('hi', 'US');
+                  },
+                  color: Colors.blue,
+                )
+              ],
+            ),
+          ),
+          Container(
+            child: Column(
+              children: [
+                RaisedButton(
+                  child: Text('Nepali'),
+                  onPressed: () {
+                    context.locale = Locale('en', 'US');
+                  },
+                  color: Colors.blue,
+                )
+              ],
+            ),
+          ),
+          Container(
+            child: Column(
+              children: [
+                RaisedButton(
+                  child: Text('Go to Home').tr(),
                   onPressed: () {
                     Navigator.pushNamed(context, '/home');
                   },
@@ -48,10 +84,11 @@ class MyHome extends StatelessWidget {
             ),
           ),
           Container(
+            padding: EdgeInsets.all(10),
             child: Column(
               children: [
                 RaisedButton(
-                  child: Text('Go to Crop Plan'),
+                  child: Text('Go to Crop Plan').tr(),
                   onPressed: () {
                     Navigator.pushNamed(context, '/cropplan');
                   },
@@ -61,10 +98,11 @@ class MyHome extends StatelessWidget {
             ),
           ),
           Container(
+            padding: EdgeInsets.all(10),
             child: Column(
               children: [
                 RaisedButton(
-                  child: Text("Go To Crop Care"),
+                  child: Text("Go to Crop Care"),
                   onPressed: () {
                     Navigator.pushNamed(context, '/cropcare');
                   },
@@ -74,10 +112,11 @@ class MyHome extends StatelessWidget {
             ),
           ),
           Container(
+            padding: EdgeInsets.all(10),
             child: Column(
               children: [
                 RaisedButton(
-                  child: Text("Go To Market"),
+                  child: Text("Go to Market"),
                   onPressed: () {
                     Navigator.pushNamed(context, '/market');
                   },
@@ -87,10 +126,11 @@ class MyHome extends StatelessWidget {
             ),
           ),
           Container(
+            padding: EdgeInsets.all(10),
             child: Column(
               children: [
                 RaisedButton(
-                  child: Text("Go To News"),
+                  child: Text("Go to News"),
                   onPressed: () {
                     Navigator.pushNamed(context, '/news');
                   },
@@ -100,10 +140,11 @@ class MyHome extends StatelessWidget {
             ),
           ),
           Container(
+            padding: EdgeInsets.all(10),
             child: Column(
               children: [
                 RaisedButton(
-                  child: Text("Go To Profile"),
+                  child: Text("Go to Profile"),
                   onPressed: () {
                     Navigator.pushNamed(context, '/profile');
                   },

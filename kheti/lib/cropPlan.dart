@@ -7,6 +7,26 @@ class CropPlan extends StatelessWidget {
         appBar: AppBar(
           title: Text('Crop Plan'),
         ),
-        body: Center());
+        body: Container(
+          child: SizedBox.fromSize(
+            size: Size(56, 56), // button width and height
+            child: ClipOval(
+              child: Material(
+                color: Colors.orange, // button color
+                child: InkWell(
+                  splashColor: Colors.green, // splash color
+                  onTap: () {}, // button pressed
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.call), // icon
+                      Text("Call"), // text
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 }

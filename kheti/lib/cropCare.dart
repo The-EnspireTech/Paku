@@ -36,32 +36,60 @@ class CropCare extends StatelessWidget {
                   ),
                   Text('\n\n'),
                   Container(
-                    child: Column(
-                      children: [
-                        RaisedButton(
-                          child: Text('Chat'),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/chat');
-                          },
-                          color: Colors.blue,
+                    padding: EdgeInsets.all(10),
+                    child: SizedBox.fromSize(
+                      size: Size(56, 56), // button width and height
+                      child: ClipOval(
+                        child: Material(
+                          color: Colors.purple, // button color
+                          child: InkWell(
+                            splashColor: Colors.green, // splash color
+                            onTap: () {
+                              Navigator.pushNamed(context, '/chat');
+                            }, // button pressed
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.message,
+                                  color: Colors.white,
+                                ), // icon
+                                Text("Chat"), // text
+                              ],
+                            ),
+                          ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                   Text("\n\n\n"),
                   Container(
-                    child: Column(
-                      children: [
-                        RaisedButton(
-                          child: Text(
-                            "Call",
+                    color: Colors.white,
+                    padding: EdgeInsets.all(10),
+                    child: SizedBox.fromSize(
+                      size: Size(56, 56), // button width and height
+                      child: ClipOval(
+                        child: Material(
+                          color: Colors.blue, // button color
+                          child: InkWell(
+                            splashColor: Colors.green, // splash color
+                            onTap: () {
+                              _launchCaller(9867330664);
+                            }, // button pressed
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.call,
+                                  color: Colors.white,
+                                ), // icon
+                                Text("Call"),
+                                // text
+                              ],
+                            ),
                           ),
-                          onPressed: () {
-                            _launchCaller(9867330664);
-                          },
-                          color: Colors.purple,
-                        )
-                      ],
+                        ),
+                      ),
                     ),
                   )
                 ],
