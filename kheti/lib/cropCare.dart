@@ -1,33 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:kheti/chatbot.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CropCare extends StatelessWidget {
+  void _launchCaller(int number) async {
+    var url = "tel:${number.toString()}";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not open';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        routes: {
-          '/chat': (context) => HomePageDialogflow(),
-        },
-        title: 'Crop Care',
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Crop Care'),
-          ),
-          body: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Crop Care'),
+        ),
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.all(100.0),
+            child: Container(
               child: Column(
                 children: [
-                  Icon(
-                    Icons.chat,
-                    color: Colors.purple,
+                  Container(
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.person,
+                          color: Colors.lightBlueAccent,
+                          size: 80,
+                        )
+                      ],
+                    ),
                   ),
-                  RaisedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/chat');
-                    },
-                    child: Text("Let's Chat!"),
-                    color: Colors.blue,
+                  Text('\n\n'),
+                  Container(
+                    child: Column(
+                      children: [
+                        RaisedButton(
+                          child: Text('Chat'),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/chat');
+                          },
+                          color: Colors.blue,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text("\n\n\n"),
+                  Container(
+                    child: Column(
+                      children: [
+                        RaisedButton(
+                          child: Text(
+                            "Call",
+                          ),
+                          onPressed: () {
+                            _launchCaller(9867330664);
+                          },
+                          color: Colors.purple,
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),

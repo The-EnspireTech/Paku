@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:kheti/chatbot.dart';
 import 'package:kheti/cropCare.dart';
+import 'package:kheti/cropPlan.dart';
+import 'package:kheti/home.dart';
+import 'package:kheti/market.dart';
+import 'package:kheti/news.dart';
+import 'package:kheti/profile.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(routes: {
-      '/cropcare': (context) => CropCare(),
-      '/chat': (context) => HomePageDialogflow(),
-    }, home: MyHome());
+    return MaterialApp(
+      routes: {
+        '/home': (context) => Home(),
+        '/cropcare': (context) => CropCare(),
+        '/chat': (context) => HomePageDialogflow(),
+        '/cropplan': (context) => CropPlan(),
+        '/market': (context) => Market(),
+        '/news': (context) => News(),
+        '/profile': (context) => Profile(),
+      },
+      home: MyHome(),
+    );
   }
 }
 
@@ -18,7 +31,7 @@ class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.fromLTRB(20, 100, 20, 10),
       child: Column(
         children: [
           Container(
@@ -38,7 +51,20 @@ class MyHome extends StatelessWidget {
             child: Column(
               children: [
                 RaisedButton(
-                  child: Text("Go To Crop Plan"),
+                  child: Text('Go to Crop Plan'),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/cropplan');
+                  },
+                  color: Colors.blue,
+                )
+              ],
+            ),
+          ),
+          Container(
+            child: Column(
+              children: [
+                RaisedButton(
+                  child: Text("Go To Crop Care"),
                   onPressed: () {
                     Navigator.pushNamed(context, '/cropcare');
                   },
@@ -53,7 +79,7 @@ class MyHome extends StatelessWidget {
                 RaisedButton(
                   child: Text("Go To Market"),
                   onPressed: () {
-                    Navigator.pushNamed(context, '');
+                    Navigator.pushNamed(context, '/market');
                   },
                   color: Colors.pink,
                 )
@@ -66,7 +92,7 @@ class MyHome extends StatelessWidget {
                 RaisedButton(
                   child: Text("Go To News"),
                   onPressed: () {
-                    Navigator.pushNamed(context, '');
+                    Navigator.pushNamed(context, '/news');
                   },
                   color: Colors.orange,
                 )
@@ -79,7 +105,7 @@ class MyHome extends StatelessWidget {
                 RaisedButton(
                   child: Text("Go To Profile"),
                   onPressed: () {
-                    Navigator.pushNamed(context, '');
+                    Navigator.pushNamed(context, '/profile');
                   },
                   color: Colors.green,
                 )
