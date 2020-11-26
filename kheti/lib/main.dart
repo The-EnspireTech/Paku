@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kheti/chatbot.dart';
 import 'package:kheti/cropCare.dart';
 import 'package:kheti/cropPlan.dart';
+import 'package:kheti/description.dart';
 import 'package:kheti/home.dart';
 import 'package:kheti/market.dart';
 import 'package:kheti/news.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/market': (context) => Market(),
         '/news': (context) => News(),
         '/profile': (context) => Profile(),
+        '/description': (context) => Description(),
       },
       home: MyHome(),
     );
@@ -43,7 +45,7 @@ class MyHome extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, '/home');
                   },
-                  color: Colors.blue,
+                  color: Colors.teal,
                 )
               ],
             ),
