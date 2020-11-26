@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "Kheti - The Farmer's Choice",
       routes: {
         '/home': (context) => Home(),
         '/cropcare': (context) => CropCare(),
