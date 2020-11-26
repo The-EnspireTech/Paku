@@ -5,7 +5,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Crop Care'),
+          title: Text('Home'),
         ),
         body: Center(
           child: Padding(

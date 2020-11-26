@@ -6,23 +6,13 @@ import 'package:kheti/home.dart';
 import 'package:kheti/market.dart';
 import 'package:kheti/news.dart';
 import 'package:kheti/profile.dart';
-import 'package:easy_localization/easy_localization.dart';
 
-void main() => runApp(
-      EasyLocalization(
-        supportedLocales: [Locale('en', 'US'), Locale('hi', 'US')],
-        path: 'assets/translations',
-        fallbackLocale: Locale('en', 'US'),
-        child: MyApp(),
-      ),
-    );
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      supportedLocales: context.supportedLocales,
-      localizationsDelegates: context.localizationDelegates,
       routes: {
         '/home': (context) => Home(),
         '/cropcare': (context) => CropCare(),
@@ -48,33 +38,7 @@ class MyHome extends StatelessWidget {
             child: Column(
               children: [
                 RaisedButton(
-                  child: Text('Nepali'),
-                  onPressed: () {
-                    context.locale = Locale('hi', 'US');
-                  },
-                  color: Colors.blue,
-                )
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              children: [
-                RaisedButton(
-                  child: Text('Nepali'),
-                  onPressed: () {
-                    context.locale = Locale('en', 'US');
-                  },
-                  color: Colors.blue,
-                )
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              children: [
-                RaisedButton(
-                  child: Text('Go to Home').tr(),
+                  child: Text('Go to Home'),
                   onPressed: () {
                     Navigator.pushNamed(context, '/home');
                   },
@@ -88,7 +52,7 @@ class MyHome extends StatelessWidget {
             child: Column(
               children: [
                 RaisedButton(
-                  child: Text('Go to Crop Plan').tr(),
+                  child: Text('Go to Crop Plan'),
                   onPressed: () {
                     Navigator.pushNamed(context, '/cropplan');
                   },
