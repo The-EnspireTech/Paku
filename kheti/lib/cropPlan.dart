@@ -23,7 +23,7 @@ class CropPlan extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Image.asset(
-                      'images/apple.jpg',
+                      'assets/images/apple.jpg',
                       width: 50,
                       height: 50,
                     ), // icon

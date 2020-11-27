@@ -73,7 +73,7 @@ class Description extends StatelessWidget {
       body: ListView(
         children: [
           Image.asset(
-            'images/apple.jpg',
+            'assets/images/apple.jpg',
             width: 400,
             height: 100,
           ),
