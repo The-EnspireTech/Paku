@@ -24,18 +24,6 @@ class CropCare extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.person,
-                          color: Colors.lightBlueAccent,
-                          size: 80,
-                        )
-                      ],
-                    ),
-                  ),
-                  Text('\n\n'),
-                  Container(
                     padding: EdgeInsets.all(10),
                     child: SizedBox.fromSize(
                       size: Size(56, 56), // button width and height
@@ -62,7 +50,7 @@ class CropCare extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text("\n\n\n"),
+                  Text("\n"),
                   Container(
                     color: Colors.white,
                     padding: EdgeInsets.all(10),
@@ -84,6 +72,36 @@ class CropCare extends StatelessWidget {
                                   color: Colors.white,
                                 ), // icon
                                 Text("Call"),
+                                // text
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text("\n"),
+                  Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.all(10),
+                    child: SizedBox.fromSize(
+                      size: Size(56, 56), // button width and height
+                      child: ClipOval(
+                        child: Material(
+                          color: Colors.pink, // button color
+                          child: InkWell(
+                            splashColor: Colors.green, // splash color
+                            onTap: () {
+                              Navigator.pushNamed(context, '/detection');
+                            }, // button pressed
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.camera_front,
+                                  color: Colors.white,
+                                ), // icon
+                                Text("Detect"),
                                 // text
                               ],
                             ),

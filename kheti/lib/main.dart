@@ -3,6 +3,7 @@ import 'package:kheti/chatbot.dart';
 import 'package:kheti/cropCare.dart';
 import 'package:kheti/cropPlan.dart';
 import 'package:kheti/description.dart';
+import 'package:kheti/detection.dart';
 import 'package:kheti/home.dart';
 import 'package:kheti/market.dart';
 import 'package:kheti/news.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         '/news': (context) => News(),
         '/profile': (context) => Profile(),
         '/description': (context) => Description(),
+        '/detection': (context) => Detection(),
       },
       home: MyHome(),
     );

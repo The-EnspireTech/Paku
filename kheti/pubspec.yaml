@@ -35,6 +35,9 @@ dependencies:
   geocoder: ^0.2.1
   html: ^0.14.0+4
   flutter_staggered_animations: ^0.1.2
+  flutter_text_to_speech: ^3.0.7
+  tflite: ^1.1.1
+  image_picker: ^0.6.7+14
   
   
 
@@ -50,6 +53,7 @@ flutter:
   assets:
     - assets/service.json
     - assets/images/
+    - assets/tflite/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

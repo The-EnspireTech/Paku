@@ -47,8 +47,8 @@ class AppState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    this.getWeather();
     this.getCurrentLocation();
+    this.getWeather();
   }
 
   // This widget is the root of your application.

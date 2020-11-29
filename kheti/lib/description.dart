@@ -1,43 +1,96 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text_to_speech/flutter_text_to_speech.dart';
 
-class Description extends StatelessWidget {
+class Description extends StatefulWidget {
+  Description({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _Description createState() => _Description();
+}
+
+class _Description extends State<Description> {
+  VoiceController _voiceController;
+
+  String text = 'An apple is an edible fruit produced by an apple tree.'
+      'Apple trees are cultivated worldwide and are the most'
+      'widely grown species in the genus Malus.'
+      'The tree originated in Central Asia, where its wild'
+      'ancestor, Malus sieversii, is still found today.';
+
+  @override
+  void initState() {
+    _voiceController = FlutterTextToSpeech.instance.voiceController();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _voiceController.stop();
+  }
+
+  _playVoice() {
+    _voiceController.init().then((_) {
+      _voiceController.speak(
+        text,
+        VoiceControllerOptions(),
+      );
+    });
+  }
+
+  _stopVoice() {
+    _voiceController.stop();
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
       padding: const EdgeInsets.all(32),
-      child: Row(
-        children: [
-          Expanded(
-            /*1*/
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /*2*/
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    'Apple',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+      child: Container(
+        child: Row(
+          children: [
+            Expanded(
+              /*1*/
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /*2*/
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      'Apple',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                Text(
-                  'Fruit',
-                  style: TextStyle(
-                    color: Colors.grey[500],
+                  Text(
+                    'Fruit',
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          /*3*/
-          Icon(
-            Icons.star,
-            color: Colors.red[500],
-          ),
-          Text('41'),
-        ],
+            /*3*/
+            Icon(
+              Icons.star,
+              color: Colors.red[500],
+            ),
+            Text('41'),
+            Expanded(
+              child: Container(
+                child: Column(
+                  children: [],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
 
@@ -55,16 +108,22 @@ class Description extends StatelessWidget {
     );
 
     Widget textSection = Container(
-      padding: const EdgeInsets.all(32),
-      child: Text(
-        'An apple is an edible fruit produced by an apple tree.'
-        'Apple trees are cultivated worldwide and are the most'
-        'widely grown species in the genus Malus.'
-        'The tree originated in Central Asia, where its wild'
-        'ancestor, Malus sieversii, is still found today.',
-        softWrap: true,
-      ),
-    );
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          children: [
+            Text(text),
+            Text('\n'),
+            RaisedButton(
+              onPressed: _playVoice,
+              color: Colors.blue,
+              child: Icon(Icons.play_arrow),
+            ),
+            RaisedButton(
+                onPressed: _stopVoice,
+                color: Colors.red,
+                child: Icon(Icons.stop)),
+          ],
+        ));
 
     return Scaffold(
       appBar: AppBar(
