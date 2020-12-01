@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
@@ -18,7 +18,7 @@ class AppState extends State<Home> {
   var humidity;
   var windSpeed;
 
-  Future getCurrentLocation() async {
+  getCurrentLocation() async {
     final position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
@@ -31,24 +31,29 @@ class AppState extends State<Home> {
     });
   }
 
-  Future getWeather() async {
-    http.Response response = await http.get(
-        "http://api.openweathermap.org/data/2.5/weather?q=Thada&units=metric&appid=6829005ae98e929e814158d91327a6db");
-    var results = jsonDecode(response.body);
-    setState(() {
-      this.temp = "${results['main']['temp']}";
-      this.description = "${results['weather'][0]['description']}";
-      this.currently = "${results['weather'][0]['main']}";
-      this.humidity = "${results['main']['humidity']}";
-      this.windSpeed = "${results['wind']['speed']}";
-    });
+  getWeather() async {
+    if (loc != "") {
+      http.Response response = await http.get(
+          "http://api.openweathermap.org/data/2.5/weather?q=Thada&units=metric&appid=6829005ae98e929e814158d91327a6db");
+
+      var results = jsonDecode(response.body);
+      setState(() {
+        this.temp = "${results['main']['temp']}";
+        this.description = "${results['weather'][0]['description']}";
+        this.currently = "${results['weather'][0]['main']}";
+        this.humidity = "${results['main']['humidity']}";
+        this.windSpeed = "${results['wind']['speed']}";
+      });
+    } else {
+      print("Unable to find location!");
+    }
   }
 
   @override
-  void initState() {
+  initState() {
     super.initState();
     this.getCurrentLocation();
-    this.getWeather();
+    Future.delayed(Duration(seconds: 10), () => getWeather());
   }
 
   // This widget is the root of your application.
