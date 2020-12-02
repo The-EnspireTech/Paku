@@ -8,10 +8,20 @@ import 'package:kheti/home.dart';
 import 'package:kheti/market.dart';
 import 'package:kheti/news.dart';
 import 'package:kheti/profile.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  final FirebaseMessaging _messaging = FirebaseMessaging();
+
+  @override
+  initState() {
+    _messaging.getToken().then((token) {
+      print(token);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "683461946919",
+    "firebase_url": "https://kheti-b525e.firebaseio.com",
+    "project_id": "kheti-b525e",
+    "storage_bucket": "kheti-b525e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683461946919:android:6befa216c7411944702802",
+        "android_client_info": {
+          "package_name": "com.example.kheti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683461946919-qj0fo9ml1ssrdsmrjmomab2mji5j4iin.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kheti",
+            "certificate_hash": "cbcdd75d94320740dd67f2d31d9cd47e6902a615"
+          }
+        },
+        {
+          "client_id": "683461946919-63d3gfhakcg8nin1u900dnthqf74brh4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8l4a0_WaPelIv32nRBdmNZMlwQkZzICA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683461946919-63d3gfhakcg8nin1u900dnthqf74brh4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

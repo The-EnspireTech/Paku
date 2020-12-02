@@ -38,6 +38,7 @@ dependencies:
   flutter_text_to_speech: ^3.0.7
   tflite: ^1.1.1
   image_picker: ^0.6.7+14
+  firebase_messaging: ^7.0.3
   
   
 
