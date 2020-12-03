@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -53,7 +54,13 @@ class AppState extends State<Home> {
   initState() {
     super.initState();
     this.getCurrentLocation();
+    //delaying weather data by 2 seconds.
     Future.delayed(Duration(seconds: 10), () => getWeather());
+    //getting the push notifications.
+    final FirebaseMessaging _messaging = FirebaseMessaging();
+    _messaging.getToken().then((token) {
+      print(token);
+    });
   }
 
   // This widget is the root of your application.
