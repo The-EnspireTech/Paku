@@ -1,7 +1,7 @@
-# kheti
+# Kheti
 An agricultural project developed to modernize the agricultural practices in Nepal. 
 
-Features:
+## Features:
 
 * Location and weather information.
 * Crop plan and recommendation.
