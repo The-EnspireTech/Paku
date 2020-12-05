@@ -57,7 +57,7 @@ class WebNews extends State<News> {
               itemBuilder: (context, index) {
                 return AnimationConfiguration.staggeredList(
                     position: index,
-                    duration: Duration(milliseconds: 200),
+                    duration: Duration(milliseconds: 600),
                     child: SlideAnimation(
                       child: FadeInAnimation(
                         child: GestureDetector(
