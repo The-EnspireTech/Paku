@@ -68,6 +68,7 @@ class AppState extends State<Home> {
             padding: const EdgeInsets.all(50.0),
             child: Column(
               children: [
+                Icon(Icons.person_pin, color: Colors.red),
                 Text("Live Location"),
                 Text(loc != null ? loc.toString() : "Loading"),
                 Text('\n'),
@@ -85,6 +86,11 @@ class AppState extends State<Home> {
                     ? windSpeed.toString() + "m/s"
                     : "Loading"),
                 Text('\n'),
+                Icon(
+                  Icons.pending_actions_outlined,
+                  color: Colors.purple,
+                ),
+                Text("Crop Recommendation system is in pending!!.......")
               ],
             ),
           ),
