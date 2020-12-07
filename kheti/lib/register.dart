@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Profile extends StatefulWidget {
+class Register extends StatefulWidget {
   @override
   _FormPageState createState() => new _FormPageState();
 }
 
-class _FormPageState extends State<Profile> {
+class _FormPageState extends State<Register> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   final formKey = new GlobalKey<FormState>();
 
@@ -44,7 +44,7 @@ class _FormPageState extends State<Profile> {
     return new Scaffold(
         key: scaffoldKey,
         appBar: new AppBar(
-          title: new Text("Login"),
+          title: new Text("Create an Account"),
         ),
         body: new Padding(
           padding: const EdgeInsets.all(20.0),
@@ -70,7 +70,7 @@ class _FormPageState extends State<Profile> {
                 ),
                 new RaisedButton(
                   child: new Text(
-                    "login",
+                    "Register",
                     style: new TextStyle(color: Colors.white),
                   ),
                   color: Colors.blue,
@@ -80,10 +80,10 @@ class _FormPageState extends State<Profile> {
                   padding: const EdgeInsets.only(top: 20.0),
                 ),
                 new RaisedButton(
-                  child: Text("Create a new account.",
+                  child: Text("Already have an account?",
                       style: TextStyle(color: Colors.white)),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/register');
+                    Navigator.pushNamed(context, '/profile');
                   },
                 )
               ],

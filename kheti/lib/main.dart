@@ -8,6 +8,7 @@ import 'package:kheti/home.dart';
 import 'package:kheti/market.dart';
 import 'package:kheti/news.dart';
 import 'package:kheti/profile.dart';
+import 'package:kheti/register.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => Profile(),
         '/description': (context) => Description(),
         '/detection': (context) => Detection(),
+        '/register': (context) => Register(),
       },
       home: MyHome(),
     );
