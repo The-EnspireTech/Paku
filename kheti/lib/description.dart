@@ -13,8 +13,7 @@ class Description extends StatefulWidget {
 class _Description extends State<Description> {
   VoiceController _voiceController;
 
-  String text = 'Apple'
-      '\n\n'
+  String text = 'Apple\n\n'
       'An apple is an edible fruit produced by an apple tree.'
       'Apple trees are cultivated worldwide and are the most'
       'widely grown species in the genus Malus.'
