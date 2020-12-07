@@ -13,11 +13,37 @@ class Description extends StatefulWidget {
 class _Description extends State<Description> {
   VoiceController _voiceController;
 
-  String text = 'An apple is an edible fruit produced by an apple tree.'
+  String text = 'Apple'
+      '\n\n'
+      'An apple is an edible fruit produced by an apple tree.'
       'Apple trees are cultivated worldwide and are the most'
       'widely grown species in the genus Malus.'
       'The tree originated in Central Asia, where its wild'
-      'ancestor, Malus sieversii, is still found today.';
+      'ancestor, Malus sieversii, is still found today.'
+      '\n\n'
+      'Types of Apple'
+      '\n\n'
+      '1. Jonagold Apple\n'
+      '2. Cameo Apple\n'
+      '3. Empire Apple\n'
+      '4. McIntosh Apple\n'
+      '5. Golden Delicious Apple\n'
+      '6. Fiji Apple\n'
+      '7. Cortland Apple\n'
+      '\n\n'
+      'Currently we are facing various types of disease in apple.'
+      'The disease is attacking apple trees as well as apple fruits.\n\n'
+      'Common Diseases of Apple Trees\n\n'
+      '1. Apple Scab\n'
+      '2. Powdery Mildew\n'
+      '3. Black Rot\n'
+      '4. Apple Rusts\n'
+      '5. Collar Rot\n'
+      '6. Sooty Blotch\n'
+      '7. Flyspeck\n'
+      '8. Fire Blight\n\n'
+      'Now it is the time to deal with those diseases.'
+      'How can we deal with them?';
 
   @override
   void initState() {
@@ -100,7 +126,11 @@ class _Description extends State<Description> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildButtonColumn(color, Icons.thumb_up, 'LIKE'),
+          _buildButtonColumn(
+            color,
+            Icons.thumb_up,
+            'LIKE',
+          ),
           _buildButtonColumn(color, Icons.near_me, 'SEND'),
           _buildButtonColumn(color, Icons.share, 'SHARE'),
         ],
@@ -111,8 +141,6 @@ class _Description extends State<Description> {
         padding: const EdgeInsets.all(32),
         child: Column(
           children: [
-            Text(text),
-            Text('\n'),
             RaisedButton(
               onPressed: _playVoice,
               color: Colors.blue,
@@ -122,6 +150,8 @@ class _Description extends State<Description> {
                 onPressed: _stopVoice,
                 color: Colors.red,
                 child: Icon(Icons.stop)),
+            Text('\n'),
+            Text(text),
           ],
         ));
 
