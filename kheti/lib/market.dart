@@ -85,6 +85,11 @@ class _WebScraperAppState extends State<Market> {
                                             color: Colors.white,
                                             fontSize: 20)),
                                   ),
+                                  Text(
+                                    post[index] + "*****",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 15),
+                                  )
                                 ],
                               ),
                             ),

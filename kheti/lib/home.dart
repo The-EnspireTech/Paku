@@ -85,12 +85,8 @@ class AppState extends State<Home> {
                 Text(windSpeed != null
                     ? windSpeed.toString() + "m/s"
                     : "Loading"),
-                Text('\n'),
-                Icon(
-                  Icons.pending_actions_outlined,
-                  color: Colors.purple,
-                ),
-                Text("Crop Recommendation system is in pending!!.......")
+                Text('\n\n'),
+                Text("Crop Recommendation system is in pending.......!!!")
               ],
             ),
           ),
