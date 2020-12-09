@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Profile extends StatefulWidget {
+class Login extends StatefulWidget {
   @override
   _FormPageState createState() => new _FormPageState();
 }
 
-class _FormPageState extends State<Profile> {
+class _FormPageState extends State<Login> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   final formKey = new GlobalKey<FormState>();
 

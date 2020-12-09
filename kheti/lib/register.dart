@@ -1,94 +1,152 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kheti/main.dart';
 
-class Register extends StatefulWidget {
-  @override
-  _FormPageState createState() => new _FormPageState();
-}
-
-class _FormPageState extends State<Register> {
-  final scaffoldKey = new GlobalKey<ScaffoldState>();
-  final formKey = new GlobalKey<FormState>();
-
-  String _email;
-  String _password;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  void _submit() {
-    final form = formKey.currentState;
-
-    if (form.validate()) {
-      form.save();
-
-      performLogin();
-    }
-  }
-
-  void performLogin() {
-    final snackbar = new SnackBar(
-      content: new Text("Email : $_email, password : $_password"),
-    );
-    scaffoldKey.currentState.showSnackBar(snackbar);
-  }
-
+// ignore: must_be_immutable
+class Registration extends StatelessWidget {
+  static const String idScreen = 'register';
+  TextEditingController nameTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController phoneTextEditingController = TextEditingController();
+  TextEditingController passwordTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        key: scaffoldKey,
-        appBar: new AppBar(
-          title: new Text("Create an Account"),
-        ),
-        body: new Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: new Form(
-            key: formKey,
-            child: new Column(
-              children: <Widget>[
-                new TextFormField(
-                  decoration: new InputDecoration(labelText: "Email"),
-                  validator: (val) =>
-                      !val.contains('@') ? 'Invalid Email' : null,
-                  onSaved: (val) => _email = val,
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              SizedBox(height: 1.8),
+              TextField(
+                controller: nameTextEditingController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: "Name",
+                  labelStyle: TextStyle(fontSize: 14.8),
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: 10.8),
                 ),
-                new TextFormField(
-                  decoration: new InputDecoration(labelText: "Password"),
-                  validator: (val) =>
-                      val.length < 6 ? 'Password too short' : null,
-                  onSaved: (val) => _password = val,
-                  obscureText: true,
+                style: TextStyle(fontSize: 14.8),
+              ),
+              SizedBox(height: 1.8),
+              TextField(
+                controller: emailTextEditingController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  labelText: "Email",
+                  labelStyle: TextStyle(fontSize: 14.8),
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: 10.8),
                 ),
-                new Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                style: TextStyle(fontSize: 14.8),
+              ),
+              SizedBox(height: 1.8),
+              TextField(
+                controller: phoneTextEditingController,
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                  labelText: "Phone",
+                  labelStyle: TextStyle(fontSize: 14.8),
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: 10.8),
                 ),
-                new RaisedButton(
-                  child: new Text(
-                    "Register",
-                    style: new TextStyle(color: Colors.white),
+                style: TextStyle(fontSize: 14.8),
+              ),
+              SizedBox(height: 1.8),
+              TextField(
+                controller: passwordTextEditingController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  labelStyle: TextStyle(fontSize: 14.8),
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: 10.8),
+                ),
+                style: TextStyle(fontSize: 14.8),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              RaisedButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                child: Container(
+                  height: 58.8,
+                  child: Center(
+                    child: Text(
+                      "Create account",
+                      style:
+                          TextStyle(fontSize: 18.0, fontFamily: "Brand Bold"),
+                    ),
                   ),
-                  color: Colors.blue,
-                  onPressed: _submit,
                 ),
-                new Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(24.0),
                 ),
-                new RaisedButton(
-                  child: Text("Already have an account?",
-                      style: TextStyle(color: Colors.white)),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/profile');
-                  },
-                )
-              ],
-            ),
+                onPressed: () {
+                  if (nameTextEditingController.text.length < 3) {
+                    displayToastMessage(
+                        "Name must be at least 3 characters.", context);
+                  } else if (!emailTextEditingController.text.contains('@')) {
+                    displayToastMessage("Email address is not valid.", context);
+                  } else if (phoneTextEditingController.text.isEmpty &&
+                      phoneTextEditingController.text.length < 10 &&
+                      phoneTextEditingController.text.length > 10) {
+                    displayToastMessage(
+                        "Please type in the correct phone number.", context);
+                  } else if (passwordTextEditingController.text.length < 5) {
+                    displayToastMessage(
+                        "Password myst be atleast 5 character", context);
+                  } else {
+                    registerNewUser(context);
+                  }
+                },
+              ),
+              FlatButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                child: Text(
+                  "already have an account? login here",
+                  style: TextStyle(color: Colors.blue),
+                ),
+              )
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
+
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  registerNewUser(BuildContext context) async {
+    final User firebaseUser = (await _firebaseAuth
+            .createUserWithEmailAndPassword(
+                email: emailTextEditingController.text,
+                password: passwordTextEditingController.text)
+            .catchError((errMsg) {
+      displayToastMessage("Error: " + errMsg.toString(), context);
+    }))
+        .user;
+    if (firebaseUser != null) {
+      usersRef.child(firebaseUser.uid);
+      Map userDataMap = {
+        "name": nameTextEditingController.text.trim(),
+        "emai.": emailTextEditingController.text.trim(),
+        "phone": phoneTextEditingController.text.trim(),
+        "password": passwordTextEditingController.text.trim(),
+      };
+      usersRef.child(firebaseUser.uid).set(userDataMap);
+      displayToastMessage("Account created Successfully!!", context);
+      Navigator.pushNamed(context, '/home');
+
+      print("save info to database");
+    } else {
+      print("error occured!!");
+      displayToastMessage("User not created!!", context);
+    }
+  }
+}
+
+displayToastMessage(String message, BuildContext context) {
+  Fluttertoast.showToast(msg: message);
 }

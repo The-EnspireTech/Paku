@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:kheti/chatbot.dart';
 import 'package:kheti/cropCare.dart';
@@ -5,12 +7,19 @@ import 'package:kheti/cropPlan.dart';
 import 'package:kheti/description.dart';
 import 'package:kheti/detection.dart';
 import 'package:kheti/home.dart';
+import 'package:kheti/login.dart';
 import 'package:kheti/market.dart';
 import 'package:kheti/news.dart';
-import 'package:kheti/profile.dart';
 import 'package:kheti/register.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
+
+DatabaseReference usersRef =
+    FirebaseDatabase.instance.reference().child("users");
 
 class MyApp extends StatelessWidget {
   @override
@@ -24,10 +33,10 @@ class MyApp extends StatelessWidget {
         '/cropplan': (context) => CropPlan(),
         '/market': (context) => Market(),
         '/news': (context) => News(),
-        '/profile': (context) => Profile(),
+        '/login': (context) => Login(),
         '/description': (context) => Description(),
         '/detection': (context) => Detection(),
-        '/register': (context) => Register(),
+        '/register': (context) => Registration(),
       },
       home: MyHome(),
     );
@@ -117,7 +126,7 @@ class MyHome extends StatelessWidget {
                 RaisedButton(
                   child: Text("Go to Profile"),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/profile');
+                    Navigator.pushNamed(context, '/login');
                   },
                   color: Colors.green,
                 )
