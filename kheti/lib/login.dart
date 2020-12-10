@@ -1,94 +1,103 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
-class Login extends StatefulWidget {
+class LoginWithFacebook extends StatefulWidget {
   @override
-  _FormPageState createState() => new _FormPageState();
+  _LoginWithFacebookState createState() => _LoginWithFacebookState();
 }
 
-class _FormPageState extends State<Login> {
-  final scaffoldKey = new GlobalKey<ScaffoldState>();
-  final formKey = new GlobalKey<FormState>();
-
-  String _email;
-  String _password;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  void _submit() {
-    final form = formKey.currentState;
-
-    if (form.validate()) {
-      form.save();
-
-      performLogin();
-    }
-  }
-
-  void performLogin() {
-    final snackbar = new SnackBar(
-      content: new Text("Email : $_email, password : $_password"),
-    );
-    scaffoldKey.currentState.showSnackBar(snackbar);
-  }
+class _LoginWithFacebookState extends State<LoginWithFacebook> {
+  bool isSignIn = false;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  User _user;
+  FacebookLogin facebookLogin = FacebookLogin();
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        key: scaffoldKey,
-        appBar: new AppBar(
-          title: new Text("Login"),
-        ),
-        body: new Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: new Form(
-            key: formKey,
-            child: new Column(
-              children: <Widget>[
-                new TextFormField(
-                  decoration: new InputDecoration(labelText: "Email"),
-                  validator: (val) =>
-                      !val.contains('@') ? 'Invalid Email' : null,
-                  onSaved: (val) => _email = val,
-                ),
-                new TextFormField(
-                  decoration: new InputDecoration(labelText: "Password"),
-                  validator: (val) =>
-                      val.length < 6 ? 'Password too short' : null,
-                  onSaved: (val) => _password = val,
-                  obscureText: true,
-                ),
-                new Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                ),
-                new RaisedButton(
-                  child: new Text(
-                    "login",
-                    style: new TextStyle(color: Colors.white),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Login"),
+      ),
+      body: isSignIn
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 80,
+                    backgroundImage: NetworkImage(_user.photoURL),
                   ),
-                  color: Colors.blue,
-                  onPressed: _submit,
+                  Text(
+                    _user.displayName,
+                    style: TextStyle(fontSize: 30),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  OutlineButton(
+                    onPressed: () {
+                      gooleSignout();
+                    },
+                    child: Text(
+                      "Logout",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  )
+                ],
+              ),
+            )
+          : Center(
+              child: RaisedButton(
+                onPressed: () async {
+                  await handleLogin();
+                },
+                child: Text(
+                  "Login with facebook",
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
-                new Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                ),
-                new RaisedButton(
-                  child: Text("Create a new account.",
-                      style: TextStyle(color: Colors.white)),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/register');
-                  },
-                )
-              ],
+                color: Colors.blue,
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(24.0)),
+              ),
             ),
-          ),
-        ));
+    );
+  }
+
+  Future<void> handleLogin() async {
+    final FacebookLoginResult result = await facebookLogin.logIn(['email']);
+    switch (result.status) {
+      case FacebookLoginStatus.cancelledByUser:
+        break;
+      case FacebookLoginStatus.error:
+        break;
+      case FacebookLoginStatus.loggedIn:
+        try {
+          await loginWithfacebook(result);
+        } catch (e) {
+          print(e);
+        }
+        break;
+    }
+  }
+
+  Future loginWithfacebook(FacebookLoginResult result) async {
+    final FacebookAccessToken accessToken = result.accessToken;
+    AuthCredential credential =
+        FacebookAuthProvider.credential(accessToken.token);
+    var a = await _auth.signInWithCredential(credential);
+    setState(() {
+      isSignIn = true;
+      _user = a.user;
+    });
+  }
+
+  Future<void> gooleSignout() async {
+    await _auth.signOut().then((onValue) {
+      setState(() {
+        facebookLogin.logOut();
+        isSignIn = false;
+      });
+    });
   }
 }

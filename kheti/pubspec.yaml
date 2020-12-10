@@ -38,11 +38,10 @@ dependencies:
   flutter_text_to_speech: ^3.0.7
   tflite: ^1.1.1
   image_picker: ^0.6.7+14
-  firebase_messaging: ^7.0.3
-  firebase_core: ^0.5.3
+  flutter_facebook_login: ^3.0.0
   firebase_auth: ^0.18.4+1
-  firebase_database: ^4.4.0
-  fluttertoast: ^7.1.5
+  firebase_core: ^0.5.3
+  
   
   
 

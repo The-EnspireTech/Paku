@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:kheti/chatbot.dart';
 import 'package:kheti/cropCare.dart';
@@ -10,16 +9,12 @@ import 'package:kheti/home.dart';
 import 'package:kheti/login.dart';
 import 'package:kheti/market.dart';
 import 'package:kheti/news.dart';
-import 'package:kheti/register.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
 }
-
-DatabaseReference usersRef =
-    FirebaseDatabase.instance.reference().child("users");
 
 class MyApp extends StatelessWidget {
   @override
@@ -33,10 +28,9 @@ class MyApp extends StatelessWidget {
         '/cropplan': (context) => CropPlan(),
         '/market': (context) => Market(),
         '/news': (context) => News(),
-        '/login': (context) => Login(),
+        '/login': (context) => LoginWithFacebook(),
         '/description': (context) => Description(),
         '/detection': (context) => Detection(),
-        '/register': (context) => Registration(),
       },
       home: MyHome(),
     );
