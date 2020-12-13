@@ -87,11 +87,11 @@ class AppState extends State<Home> {
   }
 
   @override
-  initState() {
+  initState() async {
     super.initState();
     this.getCurrentLocation();
-    //delaying weather data by 2 seconds.
-    Future.delayed(Duration(seconds: 10), () => getWeather());
+    //delaying weather data by 7 seconds.
+    await Future.delayed(Duration(seconds: 7), () => getWeather());
     //getting the push notifications.
   }
 

@@ -57,7 +57,9 @@ class _WebScraperAppState extends State<Market> {
       body: post.length == 0
           ? Text(
               "Loading......",
-              style: TextStyle(color: Colors.blue),
+              style: TextStyle(
+                color: Color.fromRGBO(20, 172, 168, 1),
+              ),
             )
           : ListView.builder(
               itemCount: post.length,

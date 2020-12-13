@@ -32,7 +32,10 @@ class _HomePageDialogflow extends State<HomePageDialogflow> {
             new Container(
               margin: new EdgeInsets.symmetric(horizontal: 4.0),
               child: new IconButton(
-                  icon: new Icon(Icons.send),
+                  icon: new Icon(
+                    Icons.send,
+                    color: Color.fromRGBO(20, 172, 168, 1),
+                  ),
                   onPressed: () => _handleSubmitted(_textController.text)),
             ),
           ],
