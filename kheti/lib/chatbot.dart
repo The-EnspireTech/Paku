@@ -78,6 +78,7 @@ class _HomePageDialogflow extends State<HomePageDialogflow> {
       appBar: new AppBar(
         centerTitle: true,
         title: new Text("Chat"),
+        backgroundColor: Color.fromRGBO(20, 172, 168, 1),
       ),
       body: new Column(children: <Widget>[
         new Flexible(

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:kheti/Navigation/bottomNavigation.dart';
 
 class LoginWithFacebook extends StatefulWidget {
   @override
@@ -18,6 +19,9 @@ class _LoginWithFacebookState extends State<LoginWithFacebook> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Login"),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(20, 172, 168, 1),
+        automaticallyImplyLeading: false,
       ),
       body: isSignIn
           ? Center(
@@ -61,6 +65,7 @@ class _LoginWithFacebookState extends State<LoginWithFacebook> {
                     borderRadius: new BorderRadius.circular(24.0)),
               ),
             ),
+      bottomNavigationBar: MyBottomNavBar(),
     );
   }
 

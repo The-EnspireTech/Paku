@@ -4,12 +4,16 @@ import 'package:kheti/cropCare.dart';
 import 'package:kheti/cropPlan.dart';
 import 'package:kheti/description.dart';
 import 'package:kheti/detection.dart';
-import 'package:kheti/home.dart';
 import 'package:kheti/login.dart';
 import 'package:kheti/market.dart';
 import 'package:kheti/news.dart';
 import 'package:kheti/Splash/SplashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:kheti/Navigation/bottomNavigation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +27,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Kheti - The Farmer's Choice",
       routes: {
-        '/main': (context) => MyApp(),
         '/home': (context) => Home(),
         '/cropcare': (context) => CropCare(),
         '/chat': (context) => HomePageDialogflow(),
@@ -39,98 +42,97 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHome extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  AppState createState() => AppState();
+}
+
+class AppState extends State<Home> {
+  var loc;
+  var temp;
+  var description;
+  var currently;
+  var humidity;
+  var windSpeed;
+
+  getCurrentLocation() async {
+    final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    final coordinates = new Coordinates(position.latitude, position.longitude);
+    var addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    var first = addresses.first;
+    setState(() {
+      this.loc = "${first.locality}";
+    });
+  }
+
+  getWeather() async {
+    if (loc != "") {
+      http.Response response = await http.get(
+          "http://api.openweathermap.org/data/2.5/weather?q=Thada&units=metric&appid=6829005ae98e929e814158d91327a6db");
+
+      var results = jsonDecode(response.body);
+      setState(() {
+        this.temp = "${results['main']['temp']}";
+        this.description = "${results['weather'][0]['description']}";
+        this.currently = "${results['weather'][0]['main']}";
+        this.humidity = "${results['main']['humidity']}";
+        this.windSpeed = "${results['wind']['speed']}";
+      });
+    } else {
+      print("Unable to find location!");
+    }
+  }
+
+  @override
+  initState() {
+    super.initState();
+    this.getCurrentLocation();
+    //delaying weather data by 2 seconds.
+    Future.delayed(Duration(seconds: 10), () => getWeather());
+    //getting the push notifications.
+  }
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 100, 60, 10),
-      child: Column(
-        children: [
-          Container(
-            child: Column(
-              children: [
-                RaisedButton(
-                  child: Text('Go to Home'),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/home');
-                  },
-                  color: Colors.teal,
-                )
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                RaisedButton(
-                  child: Text('Go to Crop Plan'),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/cropplan');
-                  },
-                  color: Colors.blue,
-                )
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                RaisedButton(
-                  child: Text("Go to Crop Care"),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/cropcare');
-                  },
-                  color: Colors.purple,
-                )
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                RaisedButton(
-                  child: Text("Go to Market"),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/market');
-                  },
-                  color: Colors.pink,
-                )
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                RaisedButton(
-                  child: Text("Go to News"),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/news');
-                  },
-                  color: Colors.orange,
-                )
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                RaisedButton(
-                  child: Text("Go to Profile"),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/login');
-                  },
-                  color: Colors.green,
-                )
-              ],
-            ),
-          ),
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Home"),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(20, 172, 168, 1),
+        automaticallyImplyLeading: false,
       ),
+      body: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(50.0),
+          child: Column(
+            children: [
+              Icon(Icons.person_pin, color: Colors.red),
+              Text("Live Location"),
+              Text(loc != null ? loc.toString() : "Loading"),
+              Text('\n'),
+              Text("Current Temprature"),
+              Text(temp != null ? temp.toString() + "°C" : "Loading"),
+              Text('\n'),
+              Text("Weather Description"),
+              Text(description != null ? description.toString() : "Loading"),
+              Text('\n'),
+              Text("Humidity"),
+              Text(humidity != null ? humidity.toString() + "%" : "Loading"),
+              Text('\n'),
+              Text("Wind Speed"),
+              Text(
+                  windSpeed != null ? windSpeed.toString() + "m/s" : "Loading"),
+              Text('\n\n'),
+              Text("Crop Recommendation system is in pending.......!!!")
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: MyBottomNavBar(),
     );
   }
 }

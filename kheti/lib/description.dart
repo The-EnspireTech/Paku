@@ -157,6 +157,8 @@ class _Description extends State<Description> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Apple'),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(20, 172, 168, 1),
       ),
       body: ListView(
         children: [

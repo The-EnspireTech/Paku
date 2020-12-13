@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 5),
         () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyHome())));
+            context, MaterialPageRoute(builder: (context) => Home())));
   }
 
   @override
@@ -24,7 +24,9 @@ class _SplashScreenState extends State<SplashScreen> {
         fit: StackFit.expand,
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(color: Colors.greenAccent),
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(20, 172, 168, 1),
+            ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,

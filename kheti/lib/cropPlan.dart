@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kheti/Navigation/bottomNavigation.dart';
 
 class CropPlan extends StatelessWidget {
   @override
@@ -6,6 +7,9 @@ class CropPlan extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Crop Plan'),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(20, 172, 168, 1),
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
@@ -320,6 +324,7 @@ class CropPlan extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: MyBottomNavBar(),
     );
   }
 }

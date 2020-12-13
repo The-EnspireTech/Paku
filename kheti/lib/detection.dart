@@ -170,6 +170,8 @@ class _TfliteHomeState extends State<Detection> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Crop Detection"),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(20, 172, 168, 1),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.image),

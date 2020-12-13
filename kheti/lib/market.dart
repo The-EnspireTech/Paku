@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kheti/Navigation/bottomNavigation.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
@@ -49,6 +50,9 @@ class _WebScraperAppState extends State<Market> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Market"),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(20, 172, 168, 1),
+        automaticallyImplyLeading: false,
       ),
       body: post.length == 0
           ? Text(
@@ -99,6 +103,7 @@ class _WebScraperAppState extends State<Market> {
                     ));
               },
             ),
+      bottomNavigationBar: MyBottomNavBar(),
     );
   }
 }
