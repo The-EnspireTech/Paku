@@ -169,7 +169,7 @@ class _TfliteHomeState extends State<Detection> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Object Detection"),
+        title: Text("Crop Detection"),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.image),

@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kheti/chatbot.dart';
 import 'package:kheti/cropCare.dart';
@@ -9,6 +8,8 @@ import 'package:kheti/home.dart';
 import 'package:kheti/login.dart';
 import 'package:kheti/market.dart';
 import 'package:kheti/news.dart';
+import 'package:kheti/Splash/SplashScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Kheti - The Farmer's Choice",
       routes: {
+        '/main': (context) => MyApp(),
         '/home': (context) => Home(),
         '/cropcare': (context) => CropCare(),
         '/chat': (context) => HomePageDialogflow(),
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
         '/description': (context) => Description(),
         '/detection': (context) => Detection(),
       },
-      home: MyHome(),
+      home: SplashScreen(),
     );
   }
 }
