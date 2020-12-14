@@ -176,7 +176,7 @@ class _TfliteHomeState extends State<Detection> {
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.image,
-          color: Color.fromRGBO(20, 172, 168, 1),
+          color: Colors.white,
         ),
         tooltip: "Pick Image from gallery",
         onPressed: selectFromImagePicker,
