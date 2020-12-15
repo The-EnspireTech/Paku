@@ -121,6 +121,7 @@ class AppState extends State<Home> {
             padding: EdgeInsets.only(top: 2.0),
           ),
           Text(loc != null ? loc.toString() : "Loading"),
+          Text('\n'),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -180,6 +181,14 @@ class AppState extends State<Home> {
                   windSpeed != null ? windSpeed.toString() + "m/s" : "Loading"),
             ],
           ),
+          Container(
+            child: Row(
+              children: [
+                Text("\n\n"),
+                Text('Recommendation system is in pending.....!')
+              ],
+            ),
+          )
         ],
       ),
       bottomNavigationBar: MyBottomNavBar(),

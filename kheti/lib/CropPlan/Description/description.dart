@@ -143,12 +143,20 @@ class _Description extends State<Description> {
             RaisedButton(
               onPressed: _playVoice,
               color: Colors.blue,
-              child: Icon(Icons.play_arrow),
+              child: Icon(
+                Icons.play_arrow,
+                color: Colors.white,
+              ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0)),
             ),
             RaisedButton(
-                onPressed: _stopVoice,
-                color: Colors.red,
-                child: Icon(Icons.stop)),
+              onPressed: _stopVoice,
+              color: Colors.red,
+              child: Icon(Icons.stop, color: Colors.white),
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0)),
+            ),
             Text('\n'),
             Text(text),
           ],
