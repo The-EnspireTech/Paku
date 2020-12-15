@@ -174,6 +174,7 @@ class _TfliteHomeState extends State<Detection> {
         backgroundColor: Color.fromRGBO(20, 172, 168, 1),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromRGBO(20, 172, 168, 1),
         child: Icon(
           Icons.image,
           color: Colors.white,

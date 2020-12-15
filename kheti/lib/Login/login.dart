@@ -41,7 +41,7 @@ class _LoginWithFacebookState extends State<LoginWithFacebook> {
                   ),
                   OutlineButton(
                     onPressed: () {
-                      gooleSignout();
+                      fbSignout();
                     },
                     child: Text(
                       "Logout",
@@ -97,7 +97,7 @@ class _LoginWithFacebookState extends State<LoginWithFacebook> {
     });
   }
 
-  Future<void> gooleSignout() async {
+  Future<void> fbSignout() async {
     await _auth.signOut().then((onValue) {
       setState(() {
         facebookLogin.logOut();

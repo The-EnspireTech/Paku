@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kheti/CropCare/Chat/chatbot.dart';
 import 'package:kheti/CropCare/cropCare.dart';
@@ -87,12 +89,13 @@ class AppState extends State<Home> {
   }
 
   @override
-  initState() async {
+  initState() {
     super.initState();
     this.getCurrentLocation();
     //delaying weather data by 7 seconds.
-    await Future.delayed(Duration(seconds: 7), () => getWeather());
-    //getting the push notifications.
+    Timer(Duration(seconds: 7), () {
+      getWeather();
+    });
   }
 
   // This widget is the root of your application.
@@ -105,32 +108,79 @@ class AppState extends State<Home> {
         backgroundColor: Color.fromRGBO(20, 172, 168, 1),
         automaticallyImplyLeading: false,
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(50.0),
-          child: Column(
+      body: Column(
+        children: [
+          CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 30.0,
+              child: Icon(
+                Icons.location_pin,
+                color: Colors.red,
+              )),
+          Padding(
+            padding: EdgeInsets.only(top: 2.0),
+          ),
+          Text(loc != null ? loc.toString() : "Loading"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Icon(Icons.person_pin, color: Colors.red),
-              Text("Live Location"),
-              Text(loc != null ? loc.toString() : "Loading"),
-              Text('\n'),
-              Text("Current Temprature"),
+              CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 30.0,
+                  child: new Image.asset(
+                    'assets/images/thermometer.jpg',
+                    width: 45,
+                    height: 50,
+                  )),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+              ),
               Text(temp != null ? temp.toString() + "°C" : "Loading"),
-              Text('\n'),
-              Text("Weather Description"),
+              CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 30.0,
+                  child: new Image.asset(
+                    'assets/images/description.jpg',
+                    width: 45,
+                    height: 50,
+                  )),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+              ),
               Text(description != null ? description.toString() : "Loading"),
-              Text('\n'),
-              Text("Humidity"),
-              Text(humidity != null ? humidity.toString() + "%" : "Loading"),
-              Text('\n'),
-              Text("Wind Speed"),
-              Text(
-                  windSpeed != null ? windSpeed.toString() + "m/s" : "Loading"),
-              Text('\n\n'),
-              Text("Crop Recommendation system is in pending.......!!!")
             ],
           ),
-        ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 30.0,
+                  child: new Image.asset(
+                    'assets/images/humidity.jpg',
+                    width: 45,
+                    height: 50,
+                  )),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+              ),
+              Text(humidity != null ? humidity.toString() + "%" : "Loading"),
+              CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 30.0,
+                  child: new Image.asset(
+                    'assets/images/wind.jpg',
+                    width: 45,
+                    height: 50,
+                  )),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+              ),
+              Text(
+                  windSpeed != null ? windSpeed.toString() + "m/s" : "Loading"),
+            ],
+          ),
+        ],
       ),
       bottomNavigationBar: MyBottomNavBar(),
     );

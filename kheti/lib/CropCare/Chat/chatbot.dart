@@ -112,7 +112,10 @@ class ChatMessage extends StatelessWidget {
     return <Widget>[
       new Container(
         margin: const EdgeInsets.only(right: 16.0),
-        child: new CircleAvatar(child: new Text('B')),
+        child: new CircleAvatar(
+          child: new Text('B'),
+          backgroundColor: Color.fromARGB(20, 172, 168, 1),
+        ),
       ),
       new Expanded(
         child: new Column(
@@ -147,10 +150,12 @@ class ChatMessage extends StatelessWidget {
       new Container(
         margin: const EdgeInsets.only(left: 16.0),
         child: new CircleAvatar(
-            child: new Text(
-          this.name[0],
-          style: new TextStyle(fontWeight: FontWeight.bold),
-        )),
+          child: new Text(
+            this.name[0],
+            style: new TextStyle(fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Color.fromRGBO(20, 172, 168, 1),
+        ),
       ),
     ];
   }
