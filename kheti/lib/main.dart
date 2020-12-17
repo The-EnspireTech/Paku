@@ -15,6 +15,7 @@ import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:kheti/Navigation/bottomNavigation.dart';
+import 'package:kheti/Notification/notification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,7 +73,7 @@ class AppState extends State<Home> {
   getWeather() async {
     if (loc != "") {
       http.Response response = await http.get(
-          "http://api.openweathermap.org/data/2.5/weather?q=Thada&units=metric&appid=6829005ae98e929e814158d91327a6db");
+          "http://api.openweathermap.org/data/2.5/weather?q=kathmandu&units=metric&appid=6829005ae98e929e814158d91327a6db");
 
       var results = jsonDecode(response.body);
       setState(() {
@@ -87,9 +88,45 @@ class AppState extends State<Home> {
     }
   }
 
+  initializeNotification() async {
+    PushNotificationsManager pushNotificationsManager =
+        PushNotificationsManager();
+    await pushNotificationsManager.init();
+    await pushNotificationsManager.createChannel();
+    pushNotificationsManager.notificationSubject.stream.listen((event) {
+      //show popup..
+      var type = event['type'];
+      var message = event['value']['data'];
+      message.forEach((key, value) {
+        if (key == 'name') {
+          showAlertMessage("The value for key $key is $value", type);
+        }
+      });
+    });
+  }
+
+  showAlertMessage(String message, String header) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text(header),
+              content: Text(message),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ]);
+        });
+  }
+
   @override
   initState() {
     super.initState();
+    initializeNotification();
     this.getCurrentLocation();
     //delaying weather data by 7 seconds.
     Timer(Duration(seconds: 7), () {
@@ -181,10 +218,15 @@ class AppState extends State<Home> {
             ],
           ),
           Container(
-            child: Row(
+            child: Column(
               children: [
                 Text("\n\n"),
-                Text('Recommendation system is in pending.....!')
+                Text(
+                  'Recomended crops',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                ),
+                Text('\n\n'),
+                Text('Work in progress...!')
               ],
             ),
           )
