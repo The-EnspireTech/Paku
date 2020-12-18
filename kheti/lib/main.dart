@@ -15,7 +15,6 @@ import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:kheti/Navigation/bottomNavigation.dart';
-import 'package:kheti/Notification/notification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -88,46 +87,10 @@ class AppState extends State<Home> {
     }
   }
 
-  initializeNotification() async {
-    PushNotificationsManager pushNotificationsManager =
-        PushNotificationsManager();
-    await pushNotificationsManager.init();
-    await pushNotificationsManager.createChannel();
-    pushNotificationsManager.notificationSubject.stream.listen((event) {
-      //show popup..
-      var type = event['type'];
-      var message = event['value']['data'];
-      message.forEach((key, value) {
-        if (key == 'name') {
-          showAlertMessage("The value for key $key is $value", type);
-        }
-      });
-    });
-  }
-
-  showAlertMessage(String message, String header) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              title: Text(header),
-              content: Text(message),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text('Ok'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ]);
-        });
-  }
-
   @override
   initState() {
     super.initState();
-    initializeNotification();
-    this.getCurrentLocation();
+    getCurrentLocation();
     //delaying weather data by 7 seconds.
     Timer(Duration(seconds: 7), () {
       getWeather();

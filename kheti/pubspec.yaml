@@ -42,10 +42,6 @@ dependencies:
   firebase_auth: ^0.18.4+1
   firebase_core: ^0.5.3
   firebase_messaging: ^7.0.3
-  flutter_local_notifications: ^3.0.2
-  rxdart: ^0.25.0
-  
-  
 
 dev_dependencies:
   flutter_test:
