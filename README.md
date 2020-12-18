@@ -9,4 +9,3 @@ An agricultural project developed to modernize the agricultural practices in Nep
 * Market and Prices
 * Current news, plans and events related to agriculture.
 * Post, Like, Comment, Share problems and questions.
-
