@@ -9,6 +9,7 @@ class LoginWithFacebook extends StatefulWidget {
 }
 
 class _LoginWithFacebookState extends State<LoginWithFacebook> {
+  // initializing the facebook login instance and assigning users as logout.
   bool isSignIn = false;
   FirebaseAuth _auth = FirebaseAuth.instance;
   User _user;
@@ -69,6 +70,7 @@ class _LoginWithFacebookState extends State<LoginWithFacebook> {
     );
   }
 
+// handling user login with switch case.
   Future<void> handleLogin() async {
     final FacebookLoginResult result = await facebookLogin.logIn(['email']);
     switch (result.status) {
@@ -86,6 +88,7 @@ class _LoginWithFacebookState extends State<LoginWithFacebook> {
     }
   }
 
+// getting the users token and saving it to the variable.
   Future loginWithfacebook(FacebookLoginResult result) async {
     final FacebookAccessToken accessToken = result.accessToken;
     AuthCredential credential =
@@ -97,6 +100,7 @@ class _LoginWithFacebookState extends State<LoginWithFacebook> {
     });
   }
 
+// performing user logout from the system.
   Future<void> fbSignout() async {
     await _auth.signOut().then((onValue) {
       setState(() {

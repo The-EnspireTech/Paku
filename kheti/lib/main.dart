@@ -49,13 +49,14 @@ class Home extends StatefulWidget {
 }
 
 class AppState extends State<Home> {
+  //initializing the variable for user location and weather information.
   var loc;
   var temp;
   var description;
   var currently;
   var humidity;
   var windSpeed;
-
+// getting the current user position using geolocator and geocoder.
   getCurrentLocation() async {
     final position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -69,6 +70,7 @@ class AppState extends State<Home> {
     });
   }
 
+// getting the user current weather information using openweathermap api.
   getWeather() async {
     if (loc != "") {
       http.Response response = await http.get(
@@ -195,6 +197,7 @@ class AppState extends State<Home> {
           )
         ],
       ),
+      //this is the bottom navigation bar of the app.
       bottomNavigationBar: MyBottomNavBar(),
     );
   }
