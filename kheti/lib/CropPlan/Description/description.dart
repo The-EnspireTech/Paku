@@ -12,7 +12,7 @@ class Description extends StatefulWidget {
 
 class _Description extends State<Description> {
   VoiceController _voiceController;
-
+//This is the description of the crop.
   String text = 'Apple\n\n'
       'An apple is an edible fruit produced by an apple tree.'
       'Apple trees are cultivated worldwide and are the most'
@@ -57,6 +57,7 @@ class _Description extends State<Description> {
     _voiceController.stop();
   }
 
+//this function read out the text loud.
   _playVoice() {
     _voiceController.init().then((_) {
       _voiceController.speak(
@@ -66,6 +67,7 @@ class _Description extends State<Description> {
     });
   }
 
+//this function stop the played function.
   _stopVoice() {
     _voiceController.stop();
   }

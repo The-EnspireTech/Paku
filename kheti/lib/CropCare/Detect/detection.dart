@@ -35,6 +35,7 @@ class _TfliteHomeState extends State<Detection> {
     });
   }
 
+//loading the model
   loadModel() async {
     Tflite.close();
     try {
@@ -56,6 +57,7 @@ class _TfliteHomeState extends State<Detection> {
     }
   }
 
+//picking image from the gallery
   selectFromImagePicker() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     if (image == null) return;
@@ -65,6 +67,7 @@ class _TfliteHomeState extends State<Detection> {
     predictImage(image);
   }
 
+//predicting the uploaded image using two models.
   predictImage(File image) async {
     if (image == null) return;
 
@@ -89,6 +92,7 @@ class _TfliteHomeState extends State<Detection> {
     });
   }
 
+// yolov2 model
   yolov2Tiny(File image) async {
     var recognitions = await Tflite.detectObjectOnImage(
         path: image.path,
@@ -103,6 +107,7 @@ class _TfliteHomeState extends State<Detection> {
     });
   }
 
+//mobileNetssd model
   ssdMobileNet(File image) async {
     var recognitions = await Tflite.detectObjectOnImage(
         path: image.path, model: "ssd", numResultsPerClass: 1);
@@ -123,6 +128,7 @@ class _TfliteHomeState extends State<Detection> {
 
     return _recognitions.map((re) {
       return Positioned(
+        //fitting the rectangular box in the objects.
         left: re["rect"]["x"] * factorX,
         top: re["rect"]["y"] * factorY,
         width: re["rect"]["w"] * factorX,
@@ -133,6 +139,7 @@ class _TfliteHomeState extends State<Detection> {
             color: blue,
             width: 3,
           )),
+          //outputing the detected values.
           child: Text(
             "${re["detectedClass"]} ${(re["confidenceInClass"] * 100).toStringAsFixed(0)}%",
             style: TextStyle(
