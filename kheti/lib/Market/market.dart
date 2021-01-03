@@ -62,7 +62,7 @@ class _WebScraperAppState extends State<Market> {
               ),
             )
           : ListView.builder(
-              itemCount: post.length,
+              itemCount: 22,
               itemBuilder: (context, index) {
                 return AnimationConfiguration.staggeredList(
                     position: index,
