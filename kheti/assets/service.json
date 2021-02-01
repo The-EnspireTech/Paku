@@ -1,7 +1,7 @@
 {
   "type": "service_account",
   "project_id": "personalassistant-eabn",
-  "private_key_id": "fe4f0501f58724f520881c4b00f4c6a875ad21ff",
+  "private_key_id": "Yourfuckinprivatekeyhera",
   "private_key": "-----BEGIN PRIVATE KEY---------END PRIVATE KEY-----\n",
   "client_email": "dialogflow-qgkxsi@personalassistant-eabn.iam.gserviceaccount.com",
   "client_id": "109455509723522229639",
